@@ -9,7 +9,7 @@ export const getElementPosition = (element) => {
 	return {
 		height: rect.height / window.innerHeight,
 		width: rect.width / window.innerHeight,
-		top: -(rect.top + rect.height / 2) / window.innerHeight + 0.5,
-		left: (rect.left + rect.width / 2 - window.innerWidth / 2) / window.innerHeight,
+		top: -(rect.top + rect.height / 2 + window.scrollY) / window.innerHeight + 0.5,
+		left: (rect.left + rect.width / 2 - document.body.offsetWidth / 2 + window.scrollX) / window.innerHeight,
 	}
 }

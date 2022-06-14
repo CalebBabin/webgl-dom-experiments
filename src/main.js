@@ -21,23 +21,23 @@ if (query_vars.stats) {
 
 const camera = new THREE.PerspectiveCamera(
 	70,
-	window.innerWidth / window.innerHeight,
+	document.body.offsetWidth / window.innerHeight,
 	0.1,
 	1000
 );
 
 const scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer({ antialias: false });
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(document.body.offsetWidth, window.innerHeight);
 
 function resize() {
 	const cameraDistance = 1;
 	camera.near = cameraDistance;
 	camera.position.z = cameraDistance;
 	camera.fov = 2 * Math.atan(1 / (2 * cameraDistance)) * (180 / Math.PI);
-	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.aspect = document.body.offsetWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
-	renderer.setSize(window.innerWidth, window.innerHeight);
+	renderer.setSize(document.body.offsetWidth, window.innerHeight);
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -86,3 +86,8 @@ function draw() {
 	if (stats) stats.end();
 };
 
+
+function scroll() {
+	camera.position.y = -window.scrollY / window.innerHeight;
+}
+window.addEventListener('scroll', scroll)
