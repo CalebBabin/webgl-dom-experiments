@@ -4,9 +4,11 @@ import "./main.css";
 import { getElementPosition } from "./util";
 
 const query_vars = {};
-const query_parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
 	query_vars[key] = value;
 });
+
+const method = query_vars.method ? query_vars.method : 'fixed';
 
 let stats = false;
 if (query_vars.stats) {
@@ -28,6 +30,11 @@ const camera = new THREE.PerspectiveCamera(
 
 const scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer({ antialias: false });
+
+if (method == 'absolute') {
+	renderer.domElement.style.position = 'absolute';
+}
+
 renderer.setSize(document.body.offsetWidth, window.innerHeight);
 
 function resize() {
@@ -90,5 +97,9 @@ function draw() {
 
 function scroll() {
 	camera.position.y = -window.scrollY / window.innerHeight;
+
+	if (method == 'absolute') {
+		renderer.domElement.style.top = window.scrollY + 'px';
+	}
 }
 window.addEventListener('scroll', scroll)
