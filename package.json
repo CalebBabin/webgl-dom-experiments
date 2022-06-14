@@ -1,5 +1,5 @@
 {
-	"name": "intro-example-threejs",
+	"name": "webgl-dom-experiments",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
@@ -9,14 +9,14 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/moonscreens/intro-example-threejs.git"
+		"url": "git+https://github.com/calebbabin/webgl-dom-experiments.git"
 	},
 	"author": "",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/moonscreens/intro-example-threejs/issues"
+		"url": "https://github.com/calebbabin/webgl-dom-experiments/issues"
 	},
-	"homepage": "https://github.com/moonscreens/intro-example-threejs#readme",
+	"homepage": "https://github.com/calebbabin/webgl-dom-experiments#readme",
 	"dependencies": {
 		"copy-webpack-plugin": "^10.2.4",
 		"css-loader": "^6.6.0",
@@ -26,7 +26,6 @@
 		"stats-js": "^1.0.1",
 		"style-loader": "^3.3.1",
 		"three": "^0.137.2",
-		"twitch-chat-emotes-threejs": "^0.3.0",
 		"webpack": "^5.69.1",
 		"webpack-cli": "^4.9.2"
 	},
