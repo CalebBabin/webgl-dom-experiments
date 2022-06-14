@@ -65,6 +65,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				cube.position.y = position.top;
 				cube.scale.x = position.width;
 				cube.scale.y = position.height;
+				cube.scale.z = 0.25;
 			}
 			cubeResize();
 			window.addEventListener('resize', cubeResize);
