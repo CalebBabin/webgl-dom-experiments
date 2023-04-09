@@ -9,6 +9,14 @@ window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value)
 });
 
 const method = query_vars.method ? query_vars.method : 'fixed';
+const scrollCapture = query_vars.scrollCapture ? query_vars.scrollCapture : false;
+
+console.log('method', method);
+console.log('scrollCapture', scrollCapture);
+
+if (scrollCapture) {
+	document.body.style.overflow = 'hidden';
+}
 
 let stats = false;
 if (query_vars.stats) {
@@ -90,16 +98,38 @@ function draw() {
 	const delta = Math.min(1, Math.max(0, (performance.now() - lastFrame) / 1000));
 	lastFrame = performance.now();
 
+	if (scrollCapture) {
+		window.scrollBy(scrollBuffer.x, scrollBuffer.y);
+		scrollBuffer.x = 0;
+		scrollBuffer.y = 0;
+
+		camera.position.y = -window.scrollY / window.innerHeight;
+	}
+
 	renderer.render(scene, camera);
+
+
 	if (stats) stats.end();
 };
 
+const scrollBuffer = { x: 0, y: 0 };
 
-function scroll() {
-	camera.position.y = -window.scrollY / window.innerHeight;
+function scroll(e) {
+	if (scrollCapture) {
+		scrollBuffer.x += e.deltaX;
+		scrollBuffer.y += e.deltaY;
+	}
+
+	let scrollPos = window.scrollY + scrollBuffer.y;
+
+	scrollPos = Math.max(0, scrollPos);
+	scrollPos = Math.min(document.body.offsetHeight, scrollPos);
+
+	if (!scrollCapture) camera.position.y = -scrollPos / window.innerHeight;
 
 	if (method == 'absolute') {
-		renderer.domElement.style.top = window.scrollY + 'px';
+		renderer.domElement.style.top = scrollPos + 'px';
 	}
 }
-window.addEventListener('scroll', scroll)
+
+document.body.addEventListener('wheel', scroll)
